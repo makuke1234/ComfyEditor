@@ -21,6 +21,7 @@ int WINAPI wWinMain(HINSTANCE hInst, [[maybe_unused]] HINSTANCE hPrevInst, [[may
 			::MessageBoxW(nullptr, L"Error creating console!", APP_NAME, MB_ICONERROR | MB_OK);
 			return 1;
 		}
+		std::cout << "DX library cdx::test::helloWorld() return code: " << cdx::test::helloWorld() << std::endl;
 	}
 
 	auto width = cet::getDefArg<std::uint16_t>(tokeniser.tokenise(argparser::regex::dashTemplate("width=", "Width="), 1), 512);

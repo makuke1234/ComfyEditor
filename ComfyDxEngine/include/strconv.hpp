@@ -146,6 +146,6 @@ namespace cet
 		return val;
 	}
 
-	std::string conv(std::wstring_view str);
-	std::wstring conv(std::string_view str);
+	COMFYDX_API std::string conv(std::wstring_view str);
+	COMFYDX_API std::wstring conv(std::string_view str);
 }

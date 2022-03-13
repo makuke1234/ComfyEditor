@@ -7,3 +7,9 @@
 #pragma once
 // add headers that you want to pre-compile here
 #include <win32.hpp>
+
+#include <string>
+#include <string_view>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>

@@ -164,8 +164,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\comfyDx.hpp" />
+    <ClInclude Include="include\concepts.hpp" />
     <ClInclude Include="include\direct2d.hpp" />
     <ClInclude Include="include\directwrite.hpp" />
+    <ClInclude Include="include\strconv.hpp" />
     <ClInclude Include="include\win32.hpp" />
     <ClInclude Include="pch.hpp" />
   </ItemGroup>
@@ -178,6 +180,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="strconv.cpp" />
+    <ClCompile Include="win32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

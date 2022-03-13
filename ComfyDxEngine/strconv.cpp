@@ -1,7 +1,7 @@
 #include "pch.hpp"
 #include "strconv.hpp"
 
-std::string cet::conv(std::wstring_view str)
+COMFYDX_API std::string cet::conv(std::wstring_view str)
 {
 	int realSize = ::WideCharToMultiByte(
 		CP_UTF8,
@@ -29,7 +29,7 @@ std::string cet::conv(std::wstring_view str)
 	);
 	return out;
 }
-std::wstring cet::conv(std::string_view str)
+COMFYDX_API std::wstring cet::conv(std::string_view str)
 {
 	int realSize = ::MultiByteToWideChar(
 		CP_UTF8,
