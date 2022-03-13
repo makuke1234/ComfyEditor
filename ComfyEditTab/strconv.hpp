@@ -1,9 +1,12 @@
 #pragma once
 
 #include <string_view>
+#include <string>
 #include <concepts>
 #include <cstdlib>
 #include <stdexcept>
+
+#include "concepts.hpp"
 
 namespace cet
 {
@@ -142,4 +145,7 @@ namespace cet
 		}
 		return val;
 	}
+
+	std::string conv(std::wstring_view str);
+	std::wstring conv(std::string_view str);
 }
