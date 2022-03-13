@@ -48,10 +48,10 @@ namespace win32
         LPSTR cmdline;
         int qcount, bcount;
 
-        if (!numargs || *lpCmdline == 0)
+        if (!numargs || lpCmdline == nullptr || *lpCmdline == 0)
         {
             ::SetLastError(ERROR_INVALID_PARAMETER);
-            return NULL;
+            return nullptr;
         }
 
         /* --- First count the arguments */
@@ -63,20 +63,30 @@ namespace win32
             /* The executable path ends at the next quote, no matter what */
             s++;
             while (*s)
+            {
                 if (*s++ == '"')
+                {
                     break;
+                }
+            }
         }
         else
         {
             /* The executable path ends at the next space, no matter what */
             while (*s && *s != ' ' && *s != '\t')
+            {
                 s++;
+            }
         }
         /* skip to the first argument, if any */
         while (*s == ' ' || *s == '\t')
+        {
             s++;
+        }
         if (*s)
+        {
             argc++;
+        }
 
         /* Analyze the remaining arguments */
         qcount = bcount = 0;
@@ -86,9 +96,13 @@ namespace win32
             {
                 /* skip to the next argument and count it if any */
                 while (*s == ' ' || *s == '\t')
+                {
                     s++;
+                }
                 if (*s)
+                {
                     argc++;
+                }
                 bcount = 0;
             }
             else if (*s == '\\')
@@ -101,7 +115,9 @@ namespace win32
             {
                 /* '"' */
                 if ((bcount & 1) == 0)
+                {
                     qcount++; /* unescaped '"' */
+                }
                 s++;
                 bcount = 0;
                 /* consecutive quotes, see comment in copying code below */
@@ -112,7 +128,9 @@ namespace win32
                 }
                 qcount = qcount % 3;
                 if (qcount == 2)
+                {
                     qcount = 0;
+                }
             }
             else
             {
@@ -128,8 +146,10 @@ namespace win32
          */
         auto lpCmdlineLen = std::strlen(lpCmdline);
         argv = static_cast<LPSTR *>(::LocalAlloc(LMEM_FIXED, (argc + 1) * sizeof(LPSTR) + (lpCmdlineLen + 1) * sizeof(char)));
-        if (!argv)
-            return NULL;
+        if (argv == nullptr) [[unlikely]]
+        {
+            return nullptr;
+        }
         cmdline = (LPSTR)(argv + argc + 1);
         strcpy_s(cmdline, (lpCmdlineLen + 1) * sizeof(char), lpCmdline);
 
@@ -155,20 +175,26 @@ namespace win32
         {
             /* The executable path ends at the next space, no matter what */
             while (*d && *d != ' ' && *d != '\t')
+            {
                 d++;
+            }
             s = d;
             if (*s)
+            {
                 s++;
+            }
         }
         /* close the executable path */
         *d++ = 0;
         /* skip to the first argument and initialize it if any */
         while (*s == ' ' || *s == '\t')
+        {
             s++;
+        }
         if (!*s)
         {
             /* There are no parameters so we are all done */
-            argv[argc] = NULL;
+            argv[argc] = nullptr;
             *numargs = argc;
             return argv;
         }
@@ -185,11 +211,14 @@ namespace win32
                 bcount = 0;
 
                 /* skip to the next one and initialize it if any */
-                do {
+                do
+                {
                     s++;
                 } while (*s == ' ' || *s == '\t');
                 if (*s)
+                {
                     argv[argc++] = d;
+                }
             }
             else if (*s == '\\')
             {
@@ -230,7 +259,9 @@ namespace win32
                     s++;
                 }
                 if (qcount == 2)
+                {
                     qcount = 0;
+                }
             }
             else
             {
@@ -240,7 +271,7 @@ namespace win32
             }
         }
         *d = '\0';
-        argv[argc] = NULL;
+        argv[argc] = nullptr;
         *numargs = argc;
 
         return argv;
@@ -324,8 +355,8 @@ namespace win32
                 std::cin.clear();
 
                 // std::wcout, std::wclog, std::wcerr, std::wcin
-                HANDLE hConOut = ::CreateFileW(L"CONOUT$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-                HANDLE hConIn = ::CreateFileW(L"CONIN$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+                HANDLE hConOut = ::CreateFileW(L"CONOUT$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+                HANDLE hConIn = ::CreateFileW(L"CONIN$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
                 ::SetStdHandle(STD_OUTPUT_HANDLE, hConOut);
                 ::SetStdHandle(STD_ERROR_HANDLE, hConOut);
                 ::SetStdHandle(STD_INPUT_HANDLE, hConIn);
