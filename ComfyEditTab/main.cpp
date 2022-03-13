@@ -4,12 +4,30 @@
 
 #include <iostream>
 
-int main(int argc, char ** argv)
+int wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, int nCmdShow)
 {
-	argparser::Tokeniser tokeniser(argc, argv);
+	win32::ArgcArgv args;
+
+	argparser::Tokeniser tokeniser(args.argc, args.argv);
 	
+	auto console = cet::getDefArg<bool>(tokeniser.tokenise(argparser::regex::dashTemplate("console="), 1), false);
+	
+	win32::WinConsole winConsole;
+
+	if (console)
+	{
+		// Attach to parent process console
+		if (!winConsole.attach()) [[unlikely]]
+		{
+			::MessageBoxW(nullptr, L"Error creating console!", APP_NAME, MB_ICONERROR | MB_OK);
+			return 1;
+		}
+	}
+
 	auto width = cet::getDefArg<std::uint16_t>(tokeniser.tokenise(argparser::regex::dashTemplate("width=", "Width="), 1), 512);
-	std::cerr << "Width attribute: " << width;
-	
+	std::cout << "Width attribute: " << width << std::endl;
+
+	getchar();
+
 	return 0;
 }

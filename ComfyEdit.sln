@@ -4,10 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComfyEditTab", "ComfyEditTab\ComfyEditTab.vcxproj", "{2E6EDA60-ACEA-4230-839E-DB49195759DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ECDF4AC-12AA-4017-97C2-80A4CE781389} = {9ECDF4AC-12AA-4017-97C2-80A4CE781389}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComfyEditTabManager", "ComfyEditTabManager\ComfyEditTabManager.vcxproj", "{F594EED1-2DC9-41FE-A10A-5B242BA90CD4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2E6EDA60-ACEA-4230-839E-DB49195759DE} = {2E6EDA60-ACEA-4230-839E-DB49195759DE}
+		{9ECDF4AC-12AA-4017-97C2-80A4CE781389} = {9ECDF4AC-12AA-4017-97C2-80A4CE781389}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComfyDxEngine", "ComfyDxEngine\ComfyDxEngine.vcxproj", "{9ECDF4AC-12AA-4017-97C2-80A4CE781389}"

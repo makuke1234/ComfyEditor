@@ -1,6 +1,6 @@
 #include "pch.hpp"
 
-int main(int argc, char ** argv)
+int wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, int nCmdShow)
 {
 
 	return 0;
