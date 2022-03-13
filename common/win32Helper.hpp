@@ -150,7 +150,7 @@ namespace win32
         {
             return nullptr;
         }
-        cmdline = (LPSTR)(argv + argc + 1);
+        cmdline = reinterpret_cast<LPSTR>(argv + argc + 1);
         strcpy_s(cmdline, (lpCmdlineLen + 1) * sizeof(char), lpCmdline);
 
         /* --- Then split and copy the arguments */

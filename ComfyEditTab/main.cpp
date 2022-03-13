@@ -4,14 +4,13 @@
 
 #include <iostream>
 
-int wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInst, [[maybe_unused]] HINSTANCE hPrevInst, [[maybe_unused]] LPWSTR lpCmdArgs, int nCmdShow)
 {
 	win32::ArgcArgv args;
 
 	argparser::Tokeniser tokeniser(args.argc, args.argv);
 	
 	auto console = cet::getDefArg<bool>(tokeniser.tokenise(argparser::regex::dashTemplate("console="), 1), false);
-	
 	win32::WinConsole winConsole;
 
 	if (console)
@@ -27,7 +26,12 @@ int wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, int nCmdShow)
 	auto width = cet::getDefArg<std::uint16_t>(tokeniser.tokenise(argparser::regex::dashTemplate("width=", "Width="), 1), 512);
 	std::cout << "Width attribute: " << width << std::endl;
 
-	getchar();
+	
+	if (console)
+	{
+		std::cout << "Press any key to exit..." << std::endl;
+		std::cin.get();
+	}
 
 	return 0;
 }

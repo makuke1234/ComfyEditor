@@ -113,7 +113,7 @@ namespace cet
 		{
 			*pos = std::size_t(ptr - str.data());
 		}
-		else if ((errno == ERANGE) || (val > std::numeric_limits<UI>::max()))
+		else if ((errno == ERANGE) || (val > static_cast<unsigned long>(std::numeric_limits<UI>::max())))
 		{
 			throw std::out_of_range("stoi");
 		}
