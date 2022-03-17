@@ -8,65 +8,14 @@
 
 #include "concepts.hpp"
 
-namespace cet
+namespace ce
 {
 	template<std::floating_point F>
-	F stof(std::string_view str, std::size_t * pos = nullptr);
+	COMFYDX_API F stof(std::string_view str, std::size_t * pos = nullptr);
 
-	template<> float stof<float>(std::string_view str, std::size_t * pos)
-	{
-		char * ptr;
-		auto val = std::strtof(str.data(), &ptr);
-		if (str.data() == ptr)
-		{
-			throw std::invalid_argument("stof<float>");
-		}
-		else if (errno == ERANGE)
-		{
-			throw std::out_of_range("stof<float>");
-		}
-		else if (pos != nullptr)
-		{
-			*pos = std::size_t(ptr - str.data());
-		}
-		return val;
-	}
-	template<> double stof<double>(std::string_view str, std::size_t * pos)
-	{
-		char * ptr;
-		auto val = std::strtod(str.data(), &ptr);
-		if (str.data() == ptr)
-		{
-			throw std::invalid_argument("stof<double>");
-		}
-		else if (errno == ERANGE)
-		{
-			throw std::out_of_range("stof<double>");
-		}
-		else if (pos != nullptr)
-		{
-			*pos = std::size_t(ptr - str.data());
-		}
-		return val;
-	}
-	template<> long double stof<long double>(std::string_view str, std::size_t * pos)
-	{
-		char * ptr;
-		auto val = std::strtold(str.data(), &ptr);
-		if (str.data() == ptr)
-		{
-			throw std::invalid_argument("stof<long double>");
-		}
-		else if (errno == ERANGE)
-		{
-			throw std::out_of_range("stof<long double>");
-		}
-		if (pos != nullptr)
-		{
-			*pos = std::size_t(ptr - str.data());
-		}
-		return val;
-	}
+	template<> COMFYDX_API float stof<float>(std::string_view str, std::size_t * pos);
+	template<> COMFYDX_API double stof<double>(std::string_view str, std::size_t * pos);
+	template<> COMFYDX_API long double stof<long double>(std::string_view str, std::size_t * pos);
 
 	template<concepts::signed_integral_until32 SI>
 	SI stoi(std::string_view str, std::size_t * pos = nullptr, int base = 10)

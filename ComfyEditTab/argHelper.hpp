@@ -6,7 +6,7 @@
 #include "concepts.hpp"
 #include "strconv.hpp"
 
-namespace cet
+namespace ce
 {
 	template<concepts::numeric N>
 	[[nodiscard]] std::string getDefArgStr(const argparser::Token & token, N defArg)
@@ -19,7 +19,7 @@ namespace cet
 	{
 		try
 		{
-			return cet::stoi<I>(cet::getDefArgStr(token, defArg));
+			return ce::stoi<I>(ce::getDefArgStr(token, defArg));
 		}
 		catch (const std::exception &)
 		{
@@ -31,7 +31,7 @@ namespace cet
 	{
 		try
 		{
-			return cet::stof<F>(cet::getDefArgStr(token, defArg));
+			return ce::stof<F>(ce::getDefArgStr(token, defArg));
 		}
 		catch (const std::exception &)
 		{

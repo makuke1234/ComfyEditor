@@ -3,7 +3,7 @@
 #include <concepts>
 #include <cstdint>
 
-namespace cet::concepts
+namespace ce::concepts
 {
 	template<typename T>
 	concept numeric = !std::is_class_v<T> && (std::is_integral_v<T> || std::is_floating_point_v<T>);
